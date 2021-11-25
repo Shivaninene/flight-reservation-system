@@ -1,0 +1,317 @@
+//Passenger class
+public class Passenger {
+    private int id;
+    private static int idCounter;
+    private static Address address;
+    private static Contact contact;
+    private static User user;
+     public Passenger()
+    {
+        this.id=idCounter;
+        idCounter++;
+    }
+    public Passenger(int i,String name,String ph,String e)
+    {
+        this.contact=new Contact(name,ph,e);
+        this.id=i;
+        contact.getContactDetails();
+    }
+    public Passenger(String s,String c,String st)
+    {
+         this.address=new Address(s,c,st);
+         address.getAddressDetails();
+    }
+    public Passenger(String u,String p)
+    {
+         this.user=new User(u,p);
+    }
+    public void setId(int i)
+    {
+        this.id=i;
+    }
+    public int getId()
+    {
+        return id;
+    }
+     public int  getPassengerCount()
+    {
+         return idCounter;
+    }
+    public static  Contact enterContact(String n,String ph,String e)
+    {
+        contact=new Passenger.Contact(n,ph,e);
+        return contact;
+    }
+    public  static Address enterAddress(String s,String c,String st)
+    {
+        address=new Passenger.Address(s,c,st);
+        return address;
+    }
+    public static  User login(String u,String p)
+    {
+        
+        user=new Passenger.User(u,p);
+        if(user.username==u && user.password==p)
+        {System.out.println("login Successfully");}
+        else
+        {System.out.println("Invalid Login Credentials");}
+        return user;
+    }
+}
+
+//Contact Class
+static class Contact
+    {
+        private  String name;
+        private  String phoneNumber;
+        private  String emailId;
+        public Contact(String n,String ph,String e)
+        {
+            this.name=n;
+            this.phoneNumber=ph;
+            this.emailId=e;
+        }
+        public void getContactDetails()
+        {
+            System.out.println("name:"+name+"\n phone number:"+phoneNumber+"\n emailid:"+emailId);
+        }
+        
+    }
+
+//Address class 
+ static class Address
+    {
+            private   String street;
+            private  String city;
+            private  String state;
+            Address(String s,String c,String st)
+            {
+                this.street=s;
+                this.city=c;
+                this.state=st;
+            }
+            public void getAddressDetails()
+            {
+            System.out.println("Street:"+street+"\n city:"+city+"\n state:"+state);
+            }
+    }
+
+//User class
+static class User
+    {
+            private String username;
+            private String password;
+            User(String u,String p)
+            {
+                this.username=u;
+                this.password=p;
+            }
+    }
+
+//Ticket class
+public class Ticket {
+      private String departure;
+      private String destination;
+      private String prn;
+      private String dtOfDeparture;
+      private String dtOfArrival;
+      private long price;
+      private Flight flight;
+      private Passenger passenger;
+      private boolean status;
+      public Ticket(String d,String de,String prn,String dtod,String dtode,long p,boolean s)
+      {
+       this.departure=d;
+       this.destination=de;
+       this.prn=prn;
+       this.dtOfDeparture=dtod;
+       this.dtOfArrival=dtode;
+       this.price=p;
+       this.status=s;
+      }
+      
+      public void ticketDetails(){
+          System.out.println(departure+":"+destination+":"+prn+":"+dtOfDeparture+":"+dtOfArrival+":"+price+":"+status);
+      }
+      
+}
+//RegularTicket class
+class RegularTicket extends Ticket
+{
+    private String food;
+    private String water;
+    private String snacks;
+    public RegularTicket(String d, String de, String prn, String dtod, String dtoa, long p, boolean s) {
+        super(d, de, prn, dtod, dtoa,p,s);
+        System.out.println("\nRegular Ticket\nprn"+super.getPrn()+"\nDeparture"+super.getDeparture()+"\nDestination:"+super.getDestination()+"\nDtofDeparture:"+super.getDtOfDeparture()+"\nDtofarrival:"+super.getDtOfArrival()+"\nPrice:"+super.getPrice()+"\nStatus:"+super.isTicketStatus());
+    }
+    public void getSpecialServiceDetails(String f,String w,String s)
+    {
+        this.food=f;
+        this.water=w;
+        this.snacks=s;
+        System.out.println( this.food+"\n"+this.water+"\n"+this.snacks);
+    }
+    public void updateSpecialServiceDetails(String f,String w,String sn)
+    {
+        this.food=f;
+        this.water=w;
+        this.snacks=sn;
+        
+        System.out.println("services availed are:"+this.food+", "+this.water+", "+this.snacks);
+    }
+   
+ }
+//TouristTicket class
+class TouristTicket extends Ticket
+{
+    String hotelAddress;
+    static Ticket[] locations=new Ticket[5];
+    public TouristTicket(String d, String de, String prn, String dtod, String dtoa, long p, boolean s) {
+        super(d, de, prn, dtod, dtoa,p,s);
+        System.out.println("\nTourist Ticket\nprn"+super.getPrn()+"\nDeparture"+super.getDeparture()+"\nDestination:"+super.getDestination()+"\nDtofDeparture:"+super.getDtOfDeparture()+"\nDtofarrival:"+super.getDtOfArrival()+"\nPrice:"+super.getPrice()+"\nStatus:"+super.isTicketStatus());
+    }
+
+    public String  getHotelAddress() {
+        return hotelAddress;
+    }
+
+    public void setHotelAddress(String  hotelAddress) {
+        this.hotelAddress = hotelAddress;
+    }
+
+    Scanner sc=new Scanner(System.in);
+    public void selectTouristLocation() {
+        System.out.println("Enter locations :");
+        for (int i = 0; i <= 4; i++) {
+            locations[i]=sc.next();
+        }
+    }
+    
+    public void showHotelDetails()
+    {
+        System.out.println("hotel address:"+getHotelAddress());
+    }
+    public void showTouristLocation()
+    {
+        for(int i=0;i<=4;i++)
+        {
+            System.out.println("locations selected are:" + locations[i]);
+        }
+    }
+    
+}
+//Flight class
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package frs1;
+
+/**
+ *
+ * @author Admin
+ */
+public class Flight {
+     private String flightName;
+    private int flightNumber;
+    private String airline;
+    private int capacity;
+    private int bookedSeats;
+
+    public Flight(String flightName, int flightNumber, String airline, int capacity, int bookedSeats) {
+        this.flightName = flightName;
+        this.flightNumber = flightNumber;
+        this.airline = airline;
+        this.capacity = capacity;
+        this.bookedSeats = bookedSeats;
+    }
+
+    public int getBookedSeats() {
+        return bookedSeats;
+    }
+    public void  getFlightDetails()
+    {
+       System.out.println("\nFlight name : "+flightName+"\nflight number : "+flightNumber+"\nairline : "+airline+"\ncapacity : "+capacity+"\nbooked seats : "+bookedSeats); 
+    }
+    public int updateBookedSeats(int recent)
+    {
+        int u=bookedSeats +recent;
+        System.out.println("update seats booked:"+u);
+        return u;
+    }
+    
+}
+//FRS1 class
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package frs1;
+
+import static frs1.Passenger.enterAddress;
+import static frs1.Passenger.enterContact;
+import static frs1.Passenger.login;
+import static frs1.TouristTicket.locations;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Admin
+ */
+public class FRS1 {
+    
+
+    
+    public static void main(String[] args) {
+         String us,psd,n,ph,e,s,c,st;
+        Scanner sc=new Scanner(System.in);
+        
+        System.out.println("please enter username and Password");
+        us=sc.nextLine();
+        psd=sc.nextLine();
+        Passenger.User p1=login(us,psd);
+        
+        Passenger p=new Passenger();
+        
+        System.out.println("enter contact details:");
+        n=sc.nextLine();
+        ph=sc.nextLine();
+        e=sc.nextLine();
+        Passenger.Contact p2=enterContact(n,ph,e);
+        
+        System.out.println("enter address details:");
+        s=sc.nextLine();
+        c=sc.nextLine();
+        st=sc.nextLine();
+        Passenger.Address p3=enterAddress(s,c,st);
+       
+        
+        System.out.println("ID:"+p.getPassengerCount());
+        p2.getContactDetails();
+        p3.getAddressDetails();
+        
+        RegularTicket t1=new RegularTicket("mumbai","banglore","654329A213UI","24-11-2021, At 11:00","24-11-2021,At 12:00",3000,true);
+        t1.updateTicketStatus(true);
+        t1.getSpecialServiceDetails("indian","sprite","fries");
+        t1.updateSpecialServiceDetails("burger", "lime soda", "chocolate");
+        t1.updateTicketStatus(false);
+        
+        TouristTicket t2=new TouristTicket("delhi","banglore","698A213UI762","27-11-2021, At 09:00","27-11-2021,At 11:00",4000,true);
+        t2.setHotelAddress("girnar hotel,banglore");
+        t2.showHotelDetails();
+        t2.selectTouristLocation();
+        t2.showTouristLocation();
+        t2.updateTicketStatus(true);
+        t2.flight=new Flight("airline 320",9,"indigo",150,50);
+        t2.flight.getFlightDetails();
+        t2.flight.updateBookedSeats(2);
+        printTicketDetails(t1);
+   }
+   public static void printTicketDetails(RegularTicket t)
+   {
+       System.out.println("Prn:"+t.getPrn());
+   }
+}    

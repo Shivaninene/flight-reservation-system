@@ -30,15 +30,19 @@ public class FRS1 {
         
         Passenger p=new Passenger();
         
-        System.out.println("enter contact details:");
+        System.out.println("enter contact details:\n Enter name:");
         n=sc.nextLine();
+        System.out.println("Enter Phonenumber:");
         ph=sc.nextLine();
+        System.out.println("Enter emailid:");
         e=sc.nextLine();
         Passenger.Contact p2=enterContact(n,ph,e);
         
-        System.out.println("enter address details:");
+        System.out.println("enter address details:\n Enter street name:");
         s=sc.nextLine();
+        System.out.println("Enter city name:");
         c=sc.nextLine();
+        System.out.println("Enter State:");
         st=sc.nextLine();
         Passenger.Address p3=enterAddress(s,c,st);
        
